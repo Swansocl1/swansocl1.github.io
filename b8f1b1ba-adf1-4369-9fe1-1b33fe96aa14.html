@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Laundry Store Simulator Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+  height: 48px;
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+	height: 48px;
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, #24282f, rgba(100,100,100,0.73))">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button> Laundry Store Simulator Demo</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />							<TR>
+								<TD>Playtime</TD>
+								<TD>38m 52s</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-5/13/2025">5/13/2025</a> 22:47:02</TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-5/13/2025">5/13/2025</a> 21:43:45</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-5/13/2025">5/13/2025</a> 21:44:01</TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default%20list%20text_completionstatus_ascending_name_ascending.html#quicklink-Played">Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Library</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_library_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default%20list%20text_source_ascending_name_ascending.html#quicklink-Steam">Steam</a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_platform_ascending_name_ascending.html#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-"></a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_communityscore_descending_name_ascending.html#quicklink-67">67</a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_criticscore_descending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_userscore_descending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					<p class="bb_paragraph">Get a taste of managing your own laundry store in this Demo version of Laundry Store Simulator! In this demo you will be able to play the opening sections of the game. There's no limit of how long you can play the demo, but available features and your progression are limited compared to the full game. Your progress and save data from the demo <strong>can not</strong> be transferred to the full version of the game. </p><p class="bb_paragraph">Are you ready to own the world's best laundry store? Transform a small laundry shop into a laundry empire!</p><p class="bb_paragraph"></p><p class="bb_paragraph">Discover the following features in Laundry Store Simulator:</p><p class="bb_paragraph"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Laundry_Store.png?t=1731082716" />Build a small laundry store into a thriving business empire! Upgrade your equipment, design and expand your store, hire staff, and more!</p><p class="bb_paragraph"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Laundry_Store.gif?t=1731082716" /><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Upgrade.png?t=1731082716" />Upgrade your equipment to provide exceptional cleaning services! Invest in high-quality washing machines, dryers, ironing equipment, and even automated washing machines!</p><p class="bb_paragraph"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Upgrade.gif?t=1731082716" /><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Design.png?t=1731082716" />Create a stylish and inviting space to attract customers! Provide comfortable seating, warm decorations, and more funsies to welcome your customers!</p><p class="bb_paragraph"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Design.gif?t=1731082716" /><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Expand.png?t=1731082716" />Grow your laundry business by unlocking new areas and features, offering complimentary services to attract more customers!</p><p class="bb_paragraph"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Expand.gif?t=1731082716" /><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Hire_Staff.png?t=1731082716" />Build a dedicated team to manage your laundry store efficiently! Hire qualified and experienced staff laundry attendants, such as, washers, dryers, and more!</p><p class="bb_paragraph"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Staff.gif?t=1731082716" /><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Sell_Items.png?t=1731082716" />Boost your profits by selling cleaning supplies and becoming a one-stop shop for laundry needs! Offer a variety of cleaning products, including detergents, fabric softeners, stain removers, and more!</p><p class="bb_paragraph"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Sell.gif?t=1731082716" /><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Delivery.png?t=1731082716" />Offer convenient home delivery to build a loyal customer base! Optimize delivery routes for efficiency and cost-effectiveness and provide excellent customer service during the delivery process!</p><p class="bb_paragraph"><img class="bb_img" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3239280/extras/Delivery.gif?t=1731082716" /></p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
